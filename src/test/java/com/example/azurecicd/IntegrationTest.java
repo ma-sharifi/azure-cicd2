@@ -14,5 +14,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @SpringBootTest(classes = AzureCicdApplication.class)
+@AutoConfigureMockMvc
 public @interface IntegrationTest {
 }
