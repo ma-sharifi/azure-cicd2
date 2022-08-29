@@ -1,0 +1,14 @@
+environement:
+  property: I AM THE DEFAULT
+
+logging:
+  level:
+    ROOT: INFO
+    com.example: DEBUG
+
+spring:
+  application:
+    name: minibankc
+
+server:
+  port: 8080
