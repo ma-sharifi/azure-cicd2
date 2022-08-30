@@ -50,7 +50,7 @@ public class HelloControllerTest {
    }
 
    @Test
-   void testToGetMessage() throws Exception {
+   void testGetMessage() throws Exception {
        String message = "Hello World!";
  
        restHelloMockMvc

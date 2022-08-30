@@ -4,11 +4,11 @@ environement:
 logging:
   level:
     ROOT: INFO
-    com.example: DEBUG
+    com.example: INFO
 
 spring:
   application:
-    name: minibankc
+    name: azure-cicd
 
 server:
   port: 8080

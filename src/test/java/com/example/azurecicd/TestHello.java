@@ -18,7 +18,7 @@ public class TestHello {
     }
 
     @Test
-    void getBalance() {
+    void testHelloObject() {
         String message = "Hello World!";
         hello.setMessage(message);
         assertEquals(message, hello.getMessage());
