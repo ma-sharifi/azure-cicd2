@@ -1,4 +1,4 @@
-package com.example.azurecicd;
+package com.example;
 import java.net.URL;
 
 import javax.annotation.PostConstruct;
@@ -9,12 +9,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 
+import com.example.azurecicd.AzureCicdApplication;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class HelloControllerIT {
+
+@SpringBootTest(classes= AzureCicdApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class HelloControllerEndToEnd {
 
     @LocalServerPort
     private int port;
