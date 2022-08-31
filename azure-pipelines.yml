@@ -7,6 +7,8 @@
 trigger:
 - main
 
+pool:
+  name: Default
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
@@ -20,16 +22,13 @@ variables:
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
-pool:
-   name: Default
+
 stages:
 - stage: Build
   displayName: Build stage
   jobs:
   - job: MavenPackageAndPublishArtifacts
     displayName: Maven Package and Publish Artifacts
-    pool:
-      vmImage: $(vmImageName)
 
     steps:
     - task: Maven@3
