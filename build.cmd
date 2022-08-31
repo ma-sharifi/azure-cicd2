@@ -1,2 +1,3 @@
 mvn -f pom.xml clean package
-After package you can find test coverge on /target/site 
+@REM After package you can find test coverge on /target/site 
+@REM cobertura:cobertura
