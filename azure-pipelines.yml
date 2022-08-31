@@ -9,6 +9,7 @@ trigger:
 
 pool:
   name: Default
+  
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
@@ -55,7 +56,7 @@ stages:
     displayName: Deploy Linux Web App
     environment: $(environmentName)
     pool:
-      vmImage: $(vmImageName)
+     name: Default
     strategy:
       runOnce:
         deploy:
