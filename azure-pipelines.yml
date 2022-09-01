@@ -1,9 +1,10 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
+# https://stacksimplify.com/azure-aks/azure-devops-create-starter-pipeline-for-aks/
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started/key-pipelines-concepts?view=azure-devops
 
 
-# A trigger tells a Pipeline to run.
+# A trigger tells a Pipeline to run. A trigger is something that's set up to tell the pipeline when to run. 
 trigger:
   - main
   # Each agent can run only one job at a time. To run multiple jobs in parallel you must configure multiple agents. You also need sufficient parallel jobs.
@@ -32,9 +33,11 @@ variables:
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
+
+# A stage is a logical boundary in the pipeline. It can be used to mark separation of concerns (for example, Build, QA, and production).
 # A pipeline is made up of one or more stages.
 # A stage is a way of organizing jobs in a pipeline and each stage can have one or more jobs.
-  
+# Each stage contains one or more jobs. When you define multiple stages in a pipeline, by default, they run one after the other. You can specify the conditions for when a stage runs. 
 stages:
   - stage: Build
     displayName: Build stage with Maven
@@ -48,12 +51,17 @@ stages:
     - job: JOB1
       steps:
       - script: echo JOB1
+      - script: echo JOB1-1
     - job: JOB2
       steps:
       - script: echo JOB2
     - job: JOB3
+    # By default, a job runs if it does not depend on any other job, or if all of the jobs that it depends on have completed and succeeded. 
       dependsOn: JOB2
       steps:
+        #A script runs code as a step in your pipeline using command line, PowerShell, or Bash. You can write cross-platform scripts for macOS, Linux, and Windows. 
+        # Unlike a task, a script is custom code that is specific to your pipeline.
+        # A step can either be a script or a task. A task is simply a pre-created script offered as a convenience to you.
       - script: echo JOB3   
       # When you define multiple jobs in a single stage, you can specify dependencies between them.
       # Pipelines must contain at least one job with no dependencies.
@@ -63,6 +71,9 @@ stages:
       # A step can be a task or script and is the smallest building block of a pipeline.
       steps:
         #A task is a pre-packaged script that performs an action, such as invoking a REST API or publishing a build artifact.
+        # A step can either be a script or a task. A task is simply a pre-created script offered as a convenience to you.
+        # A task is the building block for defining automation in a pipeline.
+        # A task is packaged script or procedure that has been abstracted with a set of inputs.
       - task: Maven@3
         displayName: 'Maven Package'
         inputs:
@@ -77,8 +88,10 @@ stages:
           SourceFolder: '$(System.DefaultWorkingDirectory)'
           Contents: '**/target/*.?(war|jar)'
           TargetFolder: $(Build.ArtifactStagingDirectory)
-  
-      - upload: $(Build.ArtifactStagingDirectory)
+          OverWrite: true
+      # List files from Build Artifact Staging Directory - After Copy
+      - bash: echo After copying to Build Artifact Directory; ls -R $(Build.ArtifactStagingDirectory) 
+      - publish: $(Build.ArtifactStagingDirectory)
         # An artifact is a collection of files or packages published by a run.
         artifact: drop
   
@@ -100,10 +113,12 @@ stages:
       # \A pipeline might deploy the app to one or more environments after build is completed and tests are run.
       environment: $(environmentName)
   
-      
+      # For Classic pipelines, a release is a versioned set of artifacts specified in a pipeline.
       strategy:
         runOnce:
           deploy:
+            #A step is the smallest building block of a pipeline. For example, a pipeline might consist of build and test steps.
+            #  A step can either be a script or a task. A task is simply a pre-created script offered as a convenience to you.
             steps:
             - task: AzureWebApp@1
               displayName: 'Azure Web App Deploy: java-spring-boot222'
