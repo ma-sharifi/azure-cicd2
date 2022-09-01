@@ -16,26 +16,26 @@ trigger:
   # Also, machine-level caches and configuration persist from run to run, which can boost speed.
   # Although multiple agents can be installed per machine, we strongly suggest to only install one agent per machine. 
   # Installing two or more agents may adversely affect performance and the result of your pipelines.
-  pool:
-    name: Default
+pool:
+  name: Default
     
-  variables:
+variables:
+
+  # Azure Resource Manager connection created during pipeline creation
+  azureSubscription: 'ebdb39cb-7bad-4abe-a3a4-da7e743608f4'
+
+  # Web app name
+  webAppName: 'java-spring-boot222'
+
+  # Environment name
+  environmentName: 'java-spring-boot222'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+# A pipeline is made up of one or more stages.
+# A stage is a way of organizing jobs in a pipeline and each stage can have one or more jobs.
   
-    # Azure Resource Manager connection created during pipeline creation
-    azureSubscription: 'ebdb39cb-7bad-4abe-a3a4-da7e743608f4'
-  
-    # Web app name
-    webAppName: 'java-spring-boot222'
-  
-    # Environment name
-    environmentName: 'java-spring-boot222'
-  
-    # Agent VM image name
-    vmImageName: 'ubuntu-latest'
-  # A pipeline is made up of one or more stages.
-  # A stage is a way of organizing jobs in a pipeline and each stage can have one or more jobs.
-  
-  stages:
+stages:
   - stage: Build
     displayName: Build stage with Maven
     # A stage contains one or more jobs. Each job runs on an agent. A job represents an execution boundary of a set of steps.
@@ -65,7 +65,10 @@ trigger:
       - task: Maven@3
         displayName: 'Maven Package'
         inputs:
+          # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/build/maven?view=azure-devops
           mavenPomFile: 'pom.xml'
+          goals: 'clean package'
+          testRunTitle: test run title by Mahdi
   
       - task: CopyFiles@2
         displayName: 'Copy Files to artifact staging directory'
