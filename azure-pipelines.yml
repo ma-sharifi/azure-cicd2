@@ -45,15 +45,16 @@ stages:
     # Each job runs on one agent. A job can also be agentless. 
     # Job that contains one or more steps.
     jobs:
-    - job: JOB1 ##1
+    - job: JOB1
       steps:
-      - script: echo JOB1 ##1
-    - job: JOB2 ##2
+      - script: echo JOB1
+    - job: JOB2
       steps:
-      - script: echo JOB2 ##2
-    - job: JOB3 ##3
+      - script: echo JOB2
+    - job: JOB3
+      dependsOn: JOB2
       steps:
-      - script: echo JOB3 ##333    
+      - script: echo JOB3   
       # When you define multiple jobs in a single stage, you can specify dependencies between them.
       # Pipelines must contain at least one job with no dependencies.
     - job: MavenPackageAndPublishArtifacts
