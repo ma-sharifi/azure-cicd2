@@ -2,6 +2,7 @@
 # https://stacksimplify.com/azure-aks/azure-devops-create-starter-pipeline-for-aks/
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started/key-pipelines-concepts?view=azure-devops
+# Stages -> Stage -> Jobs -> Job -> Steps -> Task1, Task2, Task3 , Script ,Script
 
 
 # A trigger tells a Pipeline to run. A trigger is something that's set up to tell the pipeline when to run. 

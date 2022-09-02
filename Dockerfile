@@ -8,6 +8,6 @@ LABEL maintainer="Mahdi Sharifi <mahdi.elu@gmail.com> "
 ARG JAR_FILE
 
 # Add the application's jar to the container
-COPY ${JAR_FILE} minibankc.jar
+COPY ${JAR_FILE} azure-cicd2.jar
 
 ENTRYPOINT ["java","-jar","/azure-cicd2.jar"]
